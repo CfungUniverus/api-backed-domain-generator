@@ -7,8 +7,8 @@ function ObjectInfoForm() {
     const [name, setName] = useState('');
     const [isGenerated, setIsGenerated] = useState(false);
     const [schema, setSchema] = useState('');
-    const [controllerNamespaceStructure, setControllerNamespaceStructure] = useState('');
-    const [namespaceStructure, setNamespaceStructure] = useState('');
+    const [controllerNamespaceStructure, setControllerNamespaceStructure] = useState('Univerus.Unity.Starter.Project');
+    const [namespaceStructure, setNamespaceStructure] = useState('Univerus.Unity.Starter.Project');
     const [properties, setProperties] = useState('{"IsConfig":false}');
     const [sanitizedName, setSanitizedName] = useState('');
     const [generatedSQL, setGeneratedSQL] = useState('');

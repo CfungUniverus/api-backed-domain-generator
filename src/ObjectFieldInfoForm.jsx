@@ -3,8 +3,6 @@ import Handlebars from 'handlebars';
 import { TextField, Box, Checkbox, FormControlLabel, Button, Select, MenuItem, TextareaAutosize, FormControl, InputLabel } from '@mui/material';
 
 export default function ObjectFieldInfoForm() {
-    // Add any form handling logic here
-
     const [copyLabel, setCopyLabel] = useState('Copy to Clipboard');
     const [generatedSQL, setGeneratedSQL] = useState('');
 
@@ -58,15 +56,7 @@ export default function ObjectFieldInfoForm() {
                         label="Is Generated"
                     />
 
-                    <FormControl fullWidth>
-                        <InputLabel id="DataTypeLabel">Data Type</InputLabel>
-                        <Select labelId="DataTypeLabel" id="DataType" name="DataType" label="Data Type" required>
-                            {/* Add other options here */}
-                            <MenuItem value="string">string</MenuItem>
-                            <MenuItem value="int">int</MenuItem>
-                            {/* ... */}
-                        </Select>
-                    </FormControl>
+                    <TextField label="Data Type" id="DataType" name="DataType" required> </TextField>
 
                     <FormControlLabel
                         control={<Checkbox id="isPrimaryKey" name="isPrimaryKey" />}
