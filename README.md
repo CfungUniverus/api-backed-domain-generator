@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# Object Info Form Component
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+This React component is used for generating SQL queries based on user inputs. It leverages `Handlebars` for template compilation and `@mui/material` for UI components.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- Dynamically generate SQL queries for object information.
+- Interactive form with various input types including text fields, checkboxes, and select dropdowns.
+- Live update of the sanitized name based on the 'Name' input.
+- Copy generated SQL to clipboard functionality.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Usage
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. **Data Source Type**: Enter the type of data source.
+2. **Name**: Specify the name of the object.
+3. **Is Generated**: Check if the object is generated.
+4. **Schema**: Select a schema from the dropdown or specify if 'other'.
+5. **Controller Namespace Structure**: Input for the controller's namespace structure.
+6. **Namespace Structure**: Define the namespace structure.
+7. **Properties**: Enter properties in JSON format.
+8. **Sanitized Name**: This field will auto-fill based on the 'Name' input.
+9. **Submit Button**: Click to generate SQL based on the inputs.
+10. **Generated SQL Area**: Displays the generated SQL query.
+11. **Copy to Clipboard**: Copies the generated SQL to the clipboard.
 
-### `npm test`
+# ObjectFieldInfoForm Component
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Overview
 
-### `npm run build`
+`ObjectFieldInfoForm` is a React component that facilitates generating SQL statements based on user input. This component uses Material-UI components for UI elements and Handlebars for generating SQL templates.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Features
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Dynamic SQL generation based on form input.
+- Copy generated SQL to clipboard.
+- Form validation for necessary fields.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Installation
 
-### `npm run eject`
+Ensure you have the following dependencies in your project:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- `react`
+- `@mui/material`
+- `handlebars`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Usage
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+To use the `ObjectFieldInfoForm` component in your project, follow these steps:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Import the component:
+   ```jsx
+   import ObjectFieldInfoForm from "path-to-ObjectFieldInfoForm";
+   ```
