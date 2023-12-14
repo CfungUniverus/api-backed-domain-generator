@@ -17,13 +17,17 @@ export default function ObjectFieldInfoForm() {
 
     const fillObjectTemplate = useCallback(() => {
         return `
-        --############ ${objectName} Object ############
-        IF ((SELECT COUNT(1) FROM [udp].[ObjectInfo] WHERE [Name] = '${objectName}') = 0)
-        BEGIN
-            INSERT INTO [udp].[ObjectInfo] ([FieldName], [IsGenerated], [DataType], [IsPrimaryKey], [IsIdentity], [Properties], [DataTypeNamespace], [IsUnique], [SanitizedFieldName], [DatabaseDataType])
-            VALUES 
-            ('${fieldName}', ${isGenerated ? 1 : 0}, '${dataType}', ${isPrimaryKey ? 1 : 0}, ${isIdentity ? 1 : 0}, '${properties}', '${dataTypeNamespace}', ${isUnique ? 1 : 0}, '${sanitizedFieldName}', '${databaseDataType}')
-        END
+--############ ${fieldName} Field ############
+DECLARE @${fieldName}Object NVARCHAR(100) = '${objectName}'
+DECLARE @${fieldName}ObjectId INT
+SET @${fieldName}ObjectId = (SELECT ID FROM [udp].[ObjectInfo] WHERE [Name] = @${fieldName}Object)
+
+IF ((SELECT COUNT(1) FROM [udp].[ObjectFieldInfo] WHERE [Name] = '${fieldName}' AND [ObjectInfoID] = @${fieldName}ObjectId) = 0)
+BEGIN
+    INSERT INTO [udp].[ObjectFieldInfo] ([ObjectInfoID], [IsGenerated], [Name], [DataType], [IsPrimaryKey], [IsIdentity], [Properties], [DataTypeNamespace], [IsUnique], [DefaultValue], [ExtendedProperties], [SanitizedName], [DatabaseDataType])
+    VALUES 
+    (@${fieldName}ObjectId, ${isGenerated ? 1 : 0}, '${fieldName}', '${dataType}', ${isPrimaryKey ? 1 : 0}, ${isIdentity ? 1 : 0}, '${properties}', '${dataTypeNamespace}', ${isUnique ? 1 : 0}, '', NULL, '${sanitizedFieldName}', '${databaseDataType}')
+END
         `;
     }, [objectName, fieldName, isGenerated, dataType, isPrimaryKey, isIdentity, properties, dataTypeNamespace, isUnique, sanitizedFieldName, databaseDataType]);
 

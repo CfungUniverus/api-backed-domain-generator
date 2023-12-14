@@ -18,19 +18,19 @@ function ObjectInfoForm() {
     const fillObjectTemplate = () => {
         return `
         --############ ${name} Object ############
-      IF ((SELECT COUNT(1) FROM [udp].[ObjectInfo] WHERE [Name] = '${name}') = 0)
-      BEGIN
-        INSERT INTO [udp].[ObjectInfo] ([DataSourceType], [Name], [IsGenerated], [Schema], [Properties], [NamespaceStructure], [SanitizedName])
-        VALUES 
-        (${dataSourceType}, '${name}', ${isGenerated ? 1 : 0}, '${schema}', '${properties}', '{
-          "Controller": "${controllerNamespaceStructure}",
-          "Service": "${namespaceStructure}",
-          "Dao": "${namespaceStructure}",
-          "Model": "${namespaceStructure}",
-          "Interface": "${namespaceStructure}"
-        }', 
-        '${sanitizedName}')
-      END
+IF ((SELECT COUNT(1) FROM [udp].[ObjectInfo] WHERE [Name] = '${name}') = 0)
+BEGIN
+INSERT INTO [udp].[ObjectInfo] ([DataSourceType], [Name], [IsGenerated], [Schema], [Properties], [NamespaceStructure], [SanitizedName])
+VALUES 
+(${dataSourceType}, '${name}', ${isGenerated ? 1 : 0}, '${schema}', '${properties}', '{
+    "Controller": "${controllerNamespaceStructure}",
+    "Service": "${namespaceStructure}",
+    "Dao": "${namespaceStructure}",
+    "Model": "${namespaceStructure}",
+    "Interface": "${namespaceStructure}"
+}', 
+'${sanitizedName}')
+END
       `;
     }
 
