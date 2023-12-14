@@ -35,7 +35,7 @@ export default function ObjectFieldInfoForm() {
     };
 
     return (
-        <Box sx={{ '& > :not(style)': { m: 1 }, maxWidth: "800px", width: "50%", margin: "0 auto" }}>
+        <Box sx={{ '& > :not(style)': { m: 1 }, maxWidth: "1000px", width: "50%", margin: "0 auto" }}>
             <h1>Object Field Info</h1>
 
             <form id="dataSourceForm">

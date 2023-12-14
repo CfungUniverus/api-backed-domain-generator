@@ -41,7 +41,7 @@ function ObjectInfoForm() {
         setCopyLabel("Copied!");
     };
     return (
-        <Box sx={{ '& > :not(style)': { m: 1 }, maxWidth: "800px", margin: "0 auto", width: "50%" }}>
+        <Box sx={{ '& > :not(style)': { m: 1 }, maxWidth: "1000px", margin: "0 auto", width: "50%" }}>
             <h1>Object Info</h1>
 
             <form id="dataSourceForm" >
