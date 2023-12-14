@@ -1,40 +1,33 @@
 import React, { useState } from 'react';
-import Handlebars from 'handlebars';
 import { TextField, Box, Checkbox, FormControlLabel, Button, Select, MenuItem, TextareaAutosize, FormControl, InputLabel } from '@mui/material';
 
 export default function ObjectFieldInfoForm() {
     const [copyLabel, setCopyLabel] = useState('Copy to Clipboard');
-    const [generatedSQL, setGeneratedSQL] = useState('');
+    const [objectName, setObjectName] = useState('');
+    const [fieldName, setFieldName] = useState('');
+    const [isGenerated, setIsGenerated] = useState(false);
+    const [dataType, setDataType] = useState('');
+    const [isPrimaryKey, setIsPrimaryKey] = useState(false);
+    const [isIdentity, setIsIdentity] = useState(false);
+    const [properties, setProperties] = useState('{"IsIdentifier":false,"IsSearchable":false,"IsOrderable":false,"IsDefaultVisible":false,"MaintainenceConfig":null}');
+    const [dataTypeNamespace, setDataTypeNamespace] = useState('System');
+    const [isUnique, setIsUnique] = useState(false);
+    const [sanitizedFieldName, setSanitizedFieldName] = useState('');
+    const [databaseDataType, setDatabaseDataType] = useState('');
 
-    function fillObjectTemplate(data) {
-        const template = `
-      --############ {{ObjectName}} Object ############
-    IF ((SELECT COUNT(1) FROM [udp].[ObjectInfo] WHERE [Name] = '{{ObjectName}}') = 0)
-    BEGIN
-      INSERT INTO [udp].[ObjectInfo] ([DataSourceType], [Name], [IsGenerated], [Schema], [Properties], [NamespaceStructure], [SanitizedName])
-      VALUES 
-      ({{DataSourceType}}, '{{ObjectName}}', {{IsGenerated}}, '{{Schema}}', '{{Properties}}', '{
-        "Controller": "{{controllerNamespaceStructure}}",
-        "Service": "{{NameSpaceStructure}}",
-        "Dao": "{{NameSpaceStructure}}",
-        "Model": "{{NameSpaceStructure}}",
-        "Interface": "{{NameSpaceStructure}}"
-      }', 
-      '{{SanitizedName}}')
-    END
-    `;
-
-        const compiledTemplate = Handlebars.compile(template);
-        console.log(data['Properties'])
-        return compiledTemplate(data);
-    }
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        const formProps = Object.fromEntries(formData);
-        const sql = fillObjectTemplate(formProps);
-        setGeneratedSQL(sql);
+    const fillObjectTemplate = () => {
+        return `
+        --############ ${objectName} Object ############
+        IF ((SELECT COUNT(1) FROM [udp].[ObjectInfo] WHERE [Name] = '${objectName}') = 0)
+        BEGIN
+            INSERT INTO [udp].[ObjectInfo] ([FieldName], [IsGenerated], [DataType], [IsPrimaryKey], [IsIdentity], [Properties], [DataTypeNamespace], [IsUnique], [SanitizedFieldName], [DatabaseDataType])
+            VALUES 
+            ('${fieldName}', ${isGenerated}, '${dataType}', ${isPrimaryKey}, ${isIdentity}, '${properties}', '${dataTypeNamespace}', ${isUnique}, '${sanitizedFieldName}', '${databaseDataType}')
+        END
+        `;
     };
+
+    const generatedSQL = fillObjectTemplate();
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(generatedSQL);
@@ -42,10 +35,10 @@ export default function ObjectFieldInfoForm() {
     };
 
     return (
-        <Box sx={{ '& > :not(style)': { m: 1 }, width: "500px", margin: "0 auto" }}>
+        <Box sx={{ '& > :not(style)': { m: 1 }, maxWidth: "800px", width: "50%", margin: "0 auto" }}>
             <h1>Object Field Info</h1>
 
-            <form onSubmit={handleSubmit} id="dataSourceForm">
+            <form id="dataSourceForm">
                 <Box sx={{ display: "flex", flexDirection: "column", gap: "25px" }}>
                     <TextField label="Object Name" id="ObjectName" name="ObjectName" required />
 
@@ -89,29 +82,20 @@ export default function ObjectFieldInfoForm() {
 
                     <TextField label="Database Data Type" id="dataBaseDataType" name="dataBaseDataType" required />
 
-                    <Button type="submit" variant="contained" color="primary">
-                        Generate SQL
-                    </Button>
-
-                    {generatedSQL && (
-                        <Box sx={{ marginTop: '20px' }}>
-                            <h2>Generated SQL</h2>
-                            <TextareaAutosize
-                                id="sqlcode"
-                                aria-label="Generated SQL"
-                                minRows={10}
-                                style={{ width: '100%' }}
-                                value={generatedSQL}
-                                readOnly
-                            />
-                            <Button
-                                variant="contained"
-                                onClick={copyToClipboard}
-                            >
-                                {copyLabel}
-                            </Button>
-                        </Box>
-                    )}
+                    <Box sx={{ marginTop: '20px' }}>
+                        <h2>Generated SQL</h2>
+                        <TextareaAutosize
+                            id="sqlcode"
+                            aria-label="Generated SQL"
+                            minRows={10}
+                            style={{ width: '100%' }}
+                            value={generatedSQL}
+                            readOnly
+                        />
+                        <Button variant="contained" onClick={copyToClipboard}>
+                            {copyLabel}
+                        </Button>
+                    </Box>
                 </Box>
             </form>
 
