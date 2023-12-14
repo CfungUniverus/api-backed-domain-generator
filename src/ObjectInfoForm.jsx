@@ -22,7 +22,7 @@ function ObjectInfoForm() {
       BEGIN
         INSERT INTO [udp].[ObjectInfo] ([DataSourceType], [Name], [IsGenerated], [Schema], [Properties], [NamespaceStructure], [SanitizedName])
         VALUES 
-        (${dataSourceType}, '${name}', ${isGenerated}, '${schema}', '${properties}', '{
+        (${dataSourceType}, '${name}', ${isGenerated ? 1 : 0}, '${schema}', '${properties}', '{
           "Controller": "${controllerNamespaceStructure}",
           "Service": "${namespaceStructure}",
           "Dao": "${namespaceStructure}",

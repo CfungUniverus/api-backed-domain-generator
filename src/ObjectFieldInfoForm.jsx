@@ -22,7 +22,7 @@ export default function ObjectFieldInfoForm() {
         BEGIN
             INSERT INTO [udp].[ObjectInfo] ([FieldName], [IsGenerated], [DataType], [IsPrimaryKey], [IsIdentity], [Properties], [DataTypeNamespace], [IsUnique], [SanitizedFieldName], [DatabaseDataType])
             VALUES 
-            ('${fieldName}', ${isGenerated}, '${dataType}', ${isPrimaryKey}, ${isIdentity}, '${properties}', '${dataTypeNamespace}', ${isUnique}, '${sanitizedFieldName}', '${databaseDataType}')
+            ('${fieldName}', ${isGenerated ? 1 : 0}, '${dataType}', ${isPrimaryKey ? 1 : 0}, ${isIdentity ? 1 : 0}, '${properties}', '${dataTypeNamespace}', ${isUnique ? 1 : 0}, '${sanitizedFieldName}', '${databaseDataType}')
         END
         `;
     }, [objectName, fieldName, isGenerated, dataType, isPrimaryKey, isIdentity, properties, dataTypeNamespace, isUnique, sanitizedFieldName, databaseDataType]);
